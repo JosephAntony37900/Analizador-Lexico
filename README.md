@@ -33,14 +33,14 @@ El programa analiza un texto de entrada ("código fuente") y clasifica cada pala
 ## Instalación y Ejecución
 
 ### Requisitos Previos
-- Python 3.7 o superior
+- Python 3.11 o superior
 - pip (gestor de paquetes de Python)
 
 ### Pasos de Instalación
 
 1. **Clonar el repositorio** (o descargar los archivos)
    ```bash
-   git clone <url-del-repositorio>
+   git clone https://github.com/JosephAntony37900/Analizador-Lexico.git
    cd Proyecto1_Scanner
    ```
 
@@ -180,7 +180,7 @@ El archivo `diccionario.txt` contiene las siguientes palabras clave:
 
 ---
 
-## 👤 Autores
+## Autores
 
 - **José Antonio Pinto Aguilar - Ana Belen Núñez Hernandez - Hector Emilio Somer Velázquez**
 - Matrículas: 233416 - 233385 - 233424
@@ -189,7 +189,7 @@ El archivo `diccionario.txt` contiene las siguientes palabras clave:
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto es de carácter académico y fue desarrollado con fines educativos.
 
