@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner Léxico - Práctica 1</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Analizador Léxico (Scanner)</h1>
+    <div class="main-container">
+        <div class="box">
+            <h3>Código Fuente</h3>
+            <form method="POST">
+                <textarea name="texto" placeholder="Escribe tu código aquí...">{{ texto }}</textarea>
+                <button type="submit">Analizar Código</button>
+            </form>
+            <p class="info">Al analizar, se genera <code>tokens_salida.txt</code> en la carpeta del proyecto.</p>
+        </div>
+        <div class="box">
+            <h3>Tabla de Tokens</h3>
+            {% if resultados %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lexema (Palabra)</th>
+                            <th>Tipo de Token</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in resultados %}
+                        <tr>
+                            <td>{{ item.lexema }}</td>
+                            <td>
+                                <span class="{% if 'KW_' in item.token %}token-kw{% elif 'IDENTIFICADOR' == item.token %}token-id{% else %}token-err{% endif %}">
+                                    {{ item.token }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="muted empty-state">
+                    Resultados después de analizar.
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

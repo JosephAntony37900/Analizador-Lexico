@@ -1,0 +1,91 @@
+:root{
+	--bg: #f7f8fb;
+	--card: #ffffff;
+	--muted: #6b7280;
+	--text: #111827;
+	--accent: #2563eb;
+	--accent-600: #1e40af;
+	--success: #16a34a;
+	--danger: #dc2626;
+	--shadow: 0 6px 18px rgba(15,23,42,0.06);
+	--radius: 10px;
+	font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+*{box-sizing:border-box}
+body{
+	margin:0;
+	padding:28px;
+	background:var(--bg);
+	color:var(--text);
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+}
+
+h1{font-weight:700;text-align:center;margin:6px 0 18px}
+h3{font-size:1.05rem;margin:0 0 12px;color:var(--text)}
+
+.main-container{
+	display:flex;
+	flex-wrap:wrap;
+	gap:20px;
+	max-width:1100px;
+	margin:0 auto;
+	align-items:flex-start;
+}
+
+.box{
+	flex:1 1 360px;
+	background:var(--card);
+	padding:20px;
+	border-radius:var(--radius);
+	box-shadow:var(--shadow);
+	min-width:300px;
+}
+
+textarea{
+	width:100%;
+	min-height:220px;
+	padding:12px;
+	border:1px solid #e6e9ee;
+	border-radius:8px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+	font-size:0.95rem;
+	resize:vertical;
+	background:#fbfdff;
+}
+
+button{
+	display:inline-block;
+	width:100%;
+	padding:12px 14px;
+	margin-top:12px;
+	background:var(--accent);
+	color:#fff;
+	border:none;
+	border-radius:8px;
+	font-weight:600;
+	cursor:pointer;
+	transition:background .18s ease, transform .06s ease;
+}
+button:hover{background:var(--accent-600)}
+button:active{transform:translateY(1px)}
+
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:0.95rem}
+th, td{padding:10px 12px;text-align:left;border-bottom:1px solid #f1f3f5}
+th{background:transparent;color:var(--muted);font-weight:600}
+tbody tr:nth-child(even){background:#fbfbfc}
+
+.token-kw{color:var(--accent);font-weight:700}
+.token-id{color:var(--success);font-weight:700}
+.token-err{color:var(--danger);font-weight:700;text-decoration:underline}
+
+.info{font-size:0.9em;color:var(--muted);margin-top:10px;text-align:center}
+.muted{color:var(--muted);text-align:center}
+.empty-state{margin-top:50px}
+
+@media (max-width:800px){
+	.main-container{padding:0 8px}
+	.box{flex-basis:100%}
+}
+
