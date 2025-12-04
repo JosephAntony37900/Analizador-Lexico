@@ -176,7 +176,7 @@ graph TD
 
 ### Identificador
 ```regex
-^[a-zA-Z_][a-zA-Z0-9_]*$$
+^[a-zA-Z_][a-zA-Z0-9_]*$
 ```
 
 **Reglas:**
