@@ -3,6 +3,7 @@ import re
 
 app = Flask(__name__)
 
+ARCHIVO_ENTRADA = 'entrada.txt'
 ARCHIVO_SALIDA = 'tokens_salida.txt'
 palabras_clave_map = {}
 
@@ -34,8 +35,6 @@ def cargar_diccionario():
 
 cargar_diccionario()
 
-# - Puede empezar con letra minúscula (a-z) O mayúscula (A-Z) O guion bajo (_)
-# - Pueden seguir letras, números o guiones bajos.
 patron_identificador = re.compile(r'^[a-zA-Z_][a-zA-Z0-9_]*$')
 
 def obtener_token(lexema):
@@ -48,26 +47,31 @@ def obtener_token(lexema):
     
     return "ERROR_LEXICO"
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
     resultados = []
     texto_entrada = ""
     
-    if request.method == 'POST':
-        texto_entrada = request.form.get('texto', '')
-        lexemas = texto_entrada.split()
-        contenido_archivo = "Token,Lexema\n"
+    # Leer automáticamente desde entrada.txt
+    try:
+        with open(ARCHIVO_ENTRADA, 'r', encoding='utf-8') as f:
+            texto_entrada = f.read()
+    except FileNotFoundError:
+        texto_entrada = "(No se encontró entrada.txt)"
+    
+    lexemas = texto_entrada.split()
+    contenido_archivo = "Token,Lexema\n"
+    
+    for lexema in lexemas:
+        tipo_token = obtener_token(lexema)
+        resultados.append({
+            'token': tipo_token, 
+            'lexema': lexema
+        })
+        contenido_archivo += f"{tipo_token},{lexema}\n"
         
-        for lexema in lexemas:
-            tipo_token = obtener_token(lexema)
-            resultados.append({
-                'token': tipo_token, 
-                'lexema': lexema
-            })
-            contenido_archivo += f"{tipo_token},{lexema}\n"
-            
-        with open(ARCHIVO_SALIDA, 'w', encoding='utf-8') as f:
-            f.write(contenido_archivo)
+    with open(ARCHIVO_SALIDA, 'w', encoding='utf-8') as f:
+        f.write(contenido_archivo)
 
     return render_template('index.html', resultados=resultados, texto=texto_entrada)
 

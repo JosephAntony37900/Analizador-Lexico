@@ -10,12 +10,9 @@
     <h1>Analizador Léxico (Scanner)</h1>
     <div class="main-container">
         <div class="box">
-            <h3>Código Fuente</h3>
-            <form method="POST">
-                <textarea name="texto" placeholder="Escribe tu código aquí...">{{ texto }}</textarea>
-                <button type="submit">Analizar Código</button>
-            </form>
-            <p class="info">Al analizar, se genera <code>tokens_salida.txt</code> en la carpeta del proyecto.</p>
+            <h3>Código Fuente (entrada.txt)</h3>
+            <pre class="code-display">{{ texto }}</pre>
+            <p class="info">Entrada leída desde <code>entrada.txt</code>. Resultados en <code>tokens_salida.txt</code>.</p>
         </div>
         <div class="box">
             <h3>Tabla de Tokens</h3>
