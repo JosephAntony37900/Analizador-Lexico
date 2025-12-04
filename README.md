@@ -5,7 +5,7 @@ Este proyecto implementa la **Práctica 1** de la materia Lenguajes y Autómatas
 El programa analiza un texto de entrada ("código fuente") y clasifica cada palabra en tres categorías:
 
 1. **Palabra Clave (KW):** Si pertenece al diccionario definido
-2. **Identificador:** Si cumple con la expresión regular `^[a-z][a-z0-9]*$`
+2. **Identificador:** Si cumple con la expresión regular `^[a-zA-Z_][a-zA-Z0-9_]*$` (Permite mayúsculas y guiones bajos).
 3. **Error Léxico:** Si no cumple ninguna de las reglas anteriores
 
 ---
@@ -79,58 +79,95 @@ El siguiente diagrama representa la lógica del autómata utilizado para reconoc
 
 ```mermaid
 graph TD
-    q0((Inicio)) -->|s| q_s
-    q0 -->|m| q_m
-    q0 -->|r| q_r
-    q0 -->|h| q_h
-    q0 -->|i| q_i
+    q0((Inicio)) -->|v| q_v
+    q0 -->|c| q_c
     q0 -->|f| q_f
+    q0 -->|p| q_p
+    q0 -->|o| q_o
+    q0 -->|n| q_n
+    q0 -->|i| q_i
 
-    %% Rama SI / SINO
-    q_s -->|i| q_si(((KW_SI)))
-    q_si -->|n| q_sin
-    q_sin -->|o| q_sino(((KW_SINO)))
+    %% Rama VARIABLE
+    q_v -->|a| q_va
+    q_va -->|r| q_var
+    q_var -->|i| q_vari
+    q_vari -->|a| q_varia
+    q_varia -->|b| q_variab
+    q_variab -->|l| q_variabl
+    q_variabl -->|e| q_variable(((KW_VARIABLE)))
 
-    %% Rama FIN
-    q_f -->|i| q_fi
-    q_fi -->|n| q_fin(((KW_FIN)))
+    %% Rama VERDADERO
+    q_v -->|e| q_ve
+    q_ve -->|r| q_ver
+    q_ver -->|d| q_verd
+    q_verd -->|a| q_verda
+    q_verda -->|d| q_verdad
+    q_verdad -->|e| q_verdade
+    q_verdade -->|r| q_verdader
+    q_verdader -->|o| q_verdadero(((KW_VERDADERO)))
 
-    %% Rama MIENTRAS
-    q_m -->|i| q_mi
-    q_mi -->|e| q_mie
-    q_mie -->|n| q_mien
-    q_mien -->|t| q_mient
-    q_mient -->|r| q_mientr
-    q_mientr -->|a| q_mientra
-    q_mientra -->|s| q_mientras(((KW_MIENTRAS)))
+    %% Rama CONSTANTE / CLASE
+    q_c -->|o| q_co
+    q_co -->|n| q_con
+    q_con -->|s| q_cons
+    q_cons -->|t| q_const
+    q_const -->|a| q_consta
+    q_consta -->|n| q_constan
+    q_constan -->|t| q_constant
+    q_constant -->|e| q_constante(((KW_CONSTANTE)))
 
-    %% Rama REPITE
-    q_r -->|e| q_re
-    q_re -->|p| q_rep
-    q_rep -->|i| q_repi
-    q_repi -->|t| q_repit
-    q_repit -->|e| q_repite(((KW_REPITE)))
+    q_c -->|l| q_cl
+    q_cl -->|a| q_cla
+    q_cla -->|s| q_clas
+    q_clas -->|e| q_clase(((KW_CLASE)))
 
-    %% Rama HASTA
-    q_h -->|a| q_ha
-    q_ha -->|s| q_has
-    q_has -->|t| q_hast
-    q_hast -->|a| q_hasta(((KW_HASTA)))
+    %% Rama FUNCION / FALSO
+    q_f -->|u| q_fu
+    q_fu -->|n| q_fun
+    q_fun -->|c| q_func
+    q_func -->|i| q_funci
+    q_funci -->|o| q_funcio
+    q_funcio -->|n| q_funcion(((KW_FUNCION)))
 
-    %% Rama INICIO / IMPRIMIR
-    q_i -->|n| q_in
-    q_in -->|i| q_ini
-    q_ini -->|c| q_inic
-    q_inic -->|i| q_inici
-    q_inici -->|o| q_inicio(((KW_INICIO)))
+    q_f -->|a| q_fa
+    q_fa -->|l| q_fal
+    q_fal -->|s| q_fals
+    q_fals -->|o| q_falso(((KW_FALSO)))
 
+    %% Rama PROCEDIMIENTO
+    q_p -->|r| q_pr
+    q_pr -->|o| q_pro
+    q_pro -->|c| q_proc
+    q_proc -->|e| q_proce
+    q_proce -->|d| q_proced
+    q_proced -->|i| q_procedi
+    q_procedi -->|m| q_procedim
+    q_procedim -->|i| q_procedimi
+    q_procedimi -->|e| q_procedimie
+    q_procedimie -->|n| q_procedimien
+    q_procedimien -->|t| q_procedimient
+    q_procedimient -->|o| q_procedimiento(((KW_PROCEDIMIENTO)))
+
+    %% Rama OBJETO
+    q_o -->|b| q_ob
+    q_ob -->|j| q_obj
+    q_obj -->|e| q_obje
+    q_obje -->|t| q_objet
+    q_objet -->|o| q_objeto(((KW_OBJETO)))
+
+    %% Rama NULO
+    q_n -->|u| q_nu
+    q_nu -->|l| q_nul
+    q_nul -->|o| q_nulo(((KW_NULO)))
+
+    %% Rama IMPORTAR
     q_i -->|m| q_im
     q_im -->|p| q_imp
-    q_imp -->|r| q_impr
-    q_impr -->|i| q_impri
-    q_impri -->|m| q_imprim
-    q_imprim -->|i| q_imprimi
-    q_imprimi -->|r| q_imprimir(((KW_IMPRIMIR)))
+    q_imp -->|o| q_impo
+    q_impo -->|r| q_impor
+    q_impor -->|t| q_import
+    q_import -->|a| q_importa
+    q_importa -->|r| q_importar(((KW_IMPORTAR)))
 ```
 
 ---
@@ -139,17 +176,17 @@ graph TD
 
 ### Identificador
 ```regex
-^[a-z][a-z0-9]*$
+^[a-zA-Z_][a-zA-Z0-9_]*$$
 ```
 
 **Reglas:**
-- Debe comenzar con una letra minúscula `[a-z]`
-- Puede continuar con cualquier cantidad de letras minúsculas o dígitos `[a-z0-9]*`
-- No se permiten mayúsculas ni símbolos especiales (como `_`)
+- Debe comenzar con una letra (minúscula o mayúscula) o un guion bajo _
+- Puede continuar con cualquier cantidad de letras, dígitos o guiones bajos
+- Diferencia: Acepta mayúsculas y formato snake_case
 
-**Ejemplos válidos:** `variable`, `dato1`, `x`, `contador123`
+**Ejemplos válidos:** `variable`, `Mi_Dato`, `_privado`, `Contador123`
 
-**Ejemplos inválidos:** `Variable`, `1dato`, `dato_1`, `X`
+**Ejemplos inválidos:** `var-dato`, `1dato`, `@user`
 
 ---
 
@@ -169,14 +206,16 @@ graph TD
 
 El archivo `diccionario.txt` contiene las siguientes palabras clave:
 
-- `inicio`
-- `fin`
-- `si`
-- `sino`
-- `mientras`
-- `repite`
-- `hasta`
-- `imprimir`
+- `variable`
+- `constante`
+- `funcion`
+- `procedimiento`
+- `clase`
+- `objeto`
+- `verdadero`
+- `falso`
+- `nulo`
+- `importar`
 
 ---
 

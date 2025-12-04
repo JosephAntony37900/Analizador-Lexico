@@ -7,9 +7,16 @@ ARCHIVO_SALIDA = 'tokens_salida.txt'
 palabras_clave_map = {}
 
 mapa_tipos = {
-    "si": "KW_SI", "sino": "KW_SINO", "mientras": "KW_MIENTRAS",
-    "repite": "KW_REPITE", "hasta": "KW_HASTA", "inicio": "KW_INICIO",
-    "fin": "KW_FIN", "imprimir": "KW_IMPRIMIR"
+    "variable": "KW_VARIABLE",
+    "constante": "KW_CONSTANTE",
+    "funcion": "KW_FUNCION",
+    "procedimiento": "KW_PROCEDIMIENTO",
+    "clase": "KW_CLASE",
+    "objeto": "KW_OBJETO",
+    "verdadero": "KW_VERDADERO",
+    "falso": "KW_FALSO",
+    "nulo": "KW_NULO",
+    "importar": "KW_IMPORTAR",
 }
 
 def cargar_diccionario():
@@ -17,18 +24,24 @@ def cargar_diccionario():
         with open('diccionario.txt', 'r', encoding='utf-8') as f:
             for linea in f:
                 palabra = linea.strip()
-                if palabra in mapa_tipos:
-                    palabras_clave_map[palabra] = mapa_tipos[palabra]
+                if not palabra:
+                    continue
+                key = palabra.lower()
+                if key in mapa_tipos:
+                    palabras_clave_map[key] = mapa_tipos[key]
     except FileNotFoundError:
         pass
 
 cargar_diccionario()
 
-patron_identificador = re.compile(r'^[a-z][a-z0-9]*$')
+# - Puede empezar con letra minúscula (a-z) O mayúscula (A-Z) O guion bajo (_)
+# - Pueden seguir letras, números o guiones bajos.
+patron_identificador = re.compile(r'^[a-zA-Z_][a-zA-Z0-9_]*$')
 
 def obtener_token(lexema):
-    if lexema in palabras_clave_map:
-        return palabras_clave_map[lexema]
+    key = lexema.lower()
+    if key in palabras_clave_map:
+        return palabras_clave_map[key]
     
     if patron_identificador.match(lexema):
         return "IDENTIFICADOR"
